@@ -46,8 +46,8 @@ def search(query):
     }
     headers = {"Content-Type": "application/json"}
     response = requests.post(
-        vespa_search_url, data=json.dumps(search_request), headers=headers
-    )
+        vespa_search_url, data=json.dumps(search_request), headers=headers, 
+    timeout=60)
     response.raise_for_status()
     results = response.json()["root"].get("children", [])
     mappings = app.config.get("CONNECTOR_FIELD_MAPPING", {})

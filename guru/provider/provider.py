@@ -30,7 +30,7 @@ def search(query: str) -> list[dict[str, Any]]:
     params = {"searchTerms": query}
     auth = (app.config["USER_EMAIL"], app.config["API_TOKEN"])
 
-    response = requests.get(url, headers=headers, auth=auth, params=params)
+    response = requests.get(url, headers=headers, auth=auth, params=params, timeout=60)
 
     if response.status_code != 200:
         raise UpstreamProviderError(f"Failed to query Guru: {response.text}")

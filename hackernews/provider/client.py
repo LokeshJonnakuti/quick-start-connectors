@@ -21,7 +21,7 @@ class HackerNewsClient:
         response = requests.get(
             url,
             params=params,
-        )
+        timeout=60)
 
         if response.status_code != 200:
             raise UpstreamProviderError(
@@ -34,7 +34,7 @@ class HackerNewsClient:
         url = f"{self.BASE_URL}/items/{item_id}"
         response = requests.get(
             url,
-        )
+        timeout=60)
 
         if response.status_code != 200:
             return {}

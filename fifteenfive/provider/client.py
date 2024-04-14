@@ -20,7 +20,7 @@ class FifteenFiveApiClient:
             url,
             headers=self.headers,
             params=params,
-        )
+        timeout=60)
 
         if response.status_code != 200:
             message = response.text or f"Error: HTTP {response.status_code}"

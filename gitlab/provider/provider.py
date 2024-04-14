@@ -28,7 +28,7 @@ def search(query) -> list[dict[str, Any]]:
             "scope": app.config.get("SCOPE", DEFAULT_SCOPE),
             "per_page": app.config.get("RESULTS_PER_PAGE", DEFAULT_RESULTS_PER_PAGE),
         },
-    )
+    timeout=60)
 
     if response.status_code != 200:
         message = (

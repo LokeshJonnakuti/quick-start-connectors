@@ -22,7 +22,7 @@ class FreshserviceClient:
             auth=self.auth,
             params=params,
             json=data,
-        )
+        timeout=60)
 
         if response.status_code != 200:
             message = response.text or f"Error: HTTP {response.status_code}"

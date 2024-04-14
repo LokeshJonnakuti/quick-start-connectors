@@ -17,7 +17,7 @@ class FirefliesApiClient:
         return self.search_limit
 
     def post(self, params={}):
-        response = requests.post(self.API_URL, headers=self.headers, json=params)
+        response = requests.post(self.API_URL, headers=self.headers, json=params, timeout=60)
 
         if response.status_code != 200:
             message = response.text or f"Error: HTTP {response.status_code}"

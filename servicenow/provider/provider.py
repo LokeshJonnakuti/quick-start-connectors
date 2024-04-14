@@ -28,7 +28,7 @@ def search(query: str) -> list[dict[str, Any]]:
     }
     auth = (username, password)
 
-    response = requests.get(url, auth=auth, params=params)
+    response = requests.get(url, auth=auth, params=params, timeout=60)
 
     if response.status_code != 200:
         raise UpstreamProviderError(f"Failed to query ServiceNow: {response.text}")
