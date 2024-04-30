@@ -1,7 +1,7 @@
-import requests
 from flask import current_app as app
 
 from . import UpstreamProviderError
+from security import safe_requests
 
 client = None
 
@@ -23,8 +23,7 @@ class WikipediaClient:
             "srsearch": query,
         }
 
-        response = requests.get(
-            url,
+        response = safe_requests.get(url,
             params=params,
         )
 

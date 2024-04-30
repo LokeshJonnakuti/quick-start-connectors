@@ -1,7 +1,6 @@
-import requests
-import json
 from . import UpstreamProviderError
 from flask import current_app as app
+from security import safe_requests
 
 client = None
 
@@ -21,8 +20,7 @@ class AteraClient:
             "itemsInPage": self.DEFAULT_SEARCH_LIMIT,
         }
 
-        response = requests.get(
-            url,
+        response = safe_requests.get(url,
             headers=self.headers,
             params=params,
         )

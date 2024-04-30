@@ -1,9 +1,8 @@
 import logging
-
-import requests
 from bs4 import BeautifulSoup
 
 from . import UpstreamProviderError
+from security import safe_requests
 
 logger = logging.getLogger(__name__)
 
@@ -14,7 +13,7 @@ class TechCrunchScraper:
     SEARCH_URL = "https://search.techcrunch.com/search"
 
     def process_search(self, query):
-        html_page = requests.get(self.SEARCH_URL, params={"p": query})
+        html_page = safe_requests.get(self.SEARCH_URL, params={"p": query})
         soup = BeautifulSoup(html_page.content, "html.parser")
         results = []
         try:

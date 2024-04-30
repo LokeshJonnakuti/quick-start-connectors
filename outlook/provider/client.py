@@ -3,6 +3,7 @@ from flask import current_app as app, request
 from msal import ConfidentialClientApplication
 
 from . import UpstreamProviderError
+from security import safe_requests
 
 AUTHORIZATION_HEADER = "Authorization"
 BEARER_PREFIX = "Bearer "
@@ -65,7 +66,7 @@ class OutlookClient:
             "$top": self.search_limit,
         }
         # Make a request to the Microsoft Graph API to get messages
-        response = requests.get(graph_api_url, headers=headers, params=params)
+        response = safe_requests.get(graph_api_url, headers=headers, params=params)
         if not response.ok:
             raise UpstreamProviderError(
                 f"Error while searching Outlook: {response.text}"
@@ -81,8 +82,7 @@ class OutlookClient:
             "$filter": f"internetMessageId eq '{hit['resource']['internetMessageId']}'",
             "$select": "id,subject,bodyPreview,body,from,receivedDateTime,webLink,toRecipients,hasAttachments",
         }
-        body_response = requests.get(
-            url=f"https://graph.microsoft.com/v1.0/me/messages",
+        body_response = safe_requests.get(url=f"https://graph.microsoft.com/v1.0/me/messages",
             params=params,
             headers={"Authorization": f"Bearer {self.access_token}"},
         )

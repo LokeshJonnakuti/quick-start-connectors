@@ -1,10 +1,9 @@
 import logging
 from typing import Any
-
-import requests
 from flask import current_app as app
 
 from . import UpstreamProviderError
+from security import safe_requests
 
 logger = logging.getLogger(__name__)
 
@@ -30,7 +29,7 @@ def search(query: str) -> list[dict[str, Any]]:
     params = {"searchTerms": query}
     auth = (app.config["USER_EMAIL"], app.config["API_TOKEN"])
 
-    response = requests.get(url, headers=headers, auth=auth, params=params)
+    response = safe_requests.get(url, headers=headers, auth=auth, params=params)
 
     if response.status_code != 200:
         raise UpstreamProviderError(f"Failed to query Guru: {response.text}")

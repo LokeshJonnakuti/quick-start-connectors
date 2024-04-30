@@ -1,11 +1,9 @@
 import logging
-import json
 from typing import Any
-
-import requests
 from flask import current_app as app
 
 from . import UpstreamProviderError
+from security import safe_requests
 
 
 logger = logging.getLogger(__name__)
@@ -25,7 +23,7 @@ def search(query) -> list[dict[str, Any]]:
     # Freshdesk uses Basic Auth with this specific format, using the API key
     auth = (token, "X")
 
-    response = requests.get(url, auth=auth, params=params)
+    response = safe_requests.get(url, auth=auth, params=params)
 
     if response.status_code != 200:
         message = response.text or f"Error: HTTP {response.status_code}"

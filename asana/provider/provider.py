@@ -1,10 +1,9 @@
 import logging
 from typing import Any
-
-import requests
 from flask import current_app as app
 
 from . import UpstreamProviderError
+from security import safe_requests
 
 
 logger = logging.getLogger(__name__)
@@ -58,8 +57,7 @@ def search(query) -> list[dict[str, Any]]:
         "opt_fields": ",".join(TASK_PROPERTIES),
     }
 
-    response = requests.get(
-        url,
+    response = safe_requests.get(url,
         headers=headers,
         params=params,
     )
