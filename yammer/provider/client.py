@@ -18,7 +18,8 @@ class YammerApiClient:
     def get_search_limit(self):
         return self.search_limit
 
-    def get(self, url, params={}):
+    def get(self, url, params=None):
+        params = {} if params is None else params
         response = requests.get(url, headers=self.headers, params=params)
 
         if response.status_code != 200:

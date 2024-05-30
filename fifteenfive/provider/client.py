@@ -15,7 +15,8 @@ class FifteenFiveApiClient:
     def get_allowed_entities(self):
         return self.allowed_entities
 
-    def get(self, url, params={}):
+    def get(self, url, params=None):
+        params = {} if params is None else params
         response = requests.get(
             url,
             headers=self.headers,

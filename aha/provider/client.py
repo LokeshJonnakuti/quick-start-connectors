@@ -76,7 +76,8 @@ class AhaApiClient:
     def get_search_limit(self):
         return self.search_limit
 
-    def get(self, url, params={}):
+    def get(self, url, params=None):
+        params = {} if params is None else params
         response = requests.get(url, headers=self.headers, params=params)
 
         if response.status_code != 200:
@@ -85,7 +86,8 @@ class AhaApiClient:
 
         return response.json()
 
-    def get_entities_by_type(self, entity_type, params={}):
+    def get_entities_by_type(self, entity_type, params=None):
+        params = {} if params is None else params
         url = f"{self.api_url}/{entity_type}"
         return self.get(url, params)
 

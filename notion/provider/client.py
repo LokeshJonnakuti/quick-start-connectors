@@ -16,7 +16,9 @@ class NotionSearchClient:
             "Notion-Version": self.notion_version,
         }
 
-    def _make_request(self, method, url, params={}, data={}):
+    def _make_request(self, method, url, params=None, data=None):
+        params = {} if params is None else params
+        data = {} if data is None else data
         response = requests.request(
             method,
             url,

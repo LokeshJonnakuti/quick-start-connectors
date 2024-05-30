@@ -30,7 +30,8 @@ class CopperApiClient:
     def get_mapping(self):
         return self.mapping
 
-    def post(self, url, params={}):
+    def post(self, url, params=None):
+        params = {} if params is None else params
         response = requests.post(url, headers=self.headers, json=params)
 
         if response.status_code != 200:

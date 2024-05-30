@@ -16,7 +16,8 @@ class FirefliesApiClient:
     def get_search_limit(self):
         return self.search_limit
 
-    def post(self, params={}):
+    def post(self, params=None):
+        params = {} if params is None else params
         response = requests.post(self.API_URL, headers=self.headers, json=params)
 
         if response.status_code != 200:

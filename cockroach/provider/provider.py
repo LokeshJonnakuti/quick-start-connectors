@@ -17,7 +17,7 @@ def prepare_for_serialization(data, field_to_remove):
     return prepared_data
 
 
-def serialize_results(data, mappings={}):
+def serialize_results(data, mappings=None):
     """
     Serialize a list of dictionaries by transforming keys based on provided mappings
     and converting values to strings.
@@ -29,6 +29,7 @@ def serialize_results(data, mappings={}):
     Returns:
     list: A serialized list of dictionaries with transformed keys and string-converted values.
     """
+    mappings = {} if mappings is None else mappings
     serialized_data = list(
         map(
             lambda item: {

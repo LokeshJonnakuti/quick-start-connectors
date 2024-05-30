@@ -18,9 +18,10 @@ class MediumApiClient:
         self,
         api_token,
         use_graph_ql=False,
-        graphql_entities=["posts", "publications"],
+        graphql_entities=None,
         search_limit=10,
     ):
+        graphql_entities = ["posts", "publications"] if graphql_entities is None else graphql_entities
         self.use_graph_ql = use_graph_ql
         if use_graph_ql:
             self.search_limit = search_limit
@@ -39,7 +40,8 @@ class MediumApiClient:
     def is_graph_ql_used(self):
         return self.use_graph_ql
 
-    def get(self, url, params={}):
+    def get(self, url, params=None):
+        params = {} if params is None else params
         response = requests.get(url, headers=self.headers, params=params)
 
         if response.status_code != 200:
@@ -48,7 +50,8 @@ class MediumApiClient:
 
         return response.json()
 
-    def post(self, params={}):
+    def post(self, params=None):
+        params = {} if params is None else params
         response = requests.post(self.API_URL, headers=self.headers, json=params)
 
         if response.status_code != 200:

@@ -22,7 +22,8 @@ class BaseCampClient:
     def get_search_entities(self):
         return self.search_entities
 
-    def get(self, url, params={}):
+    def get(self, url, params=None):
+        params = {} if params is None else params
         response = requests.get(url, headers=self.headers, params=params)
 
         if response.status_code != 200:

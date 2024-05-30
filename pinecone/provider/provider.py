@@ -7,7 +7,7 @@ from .client import get_cohere_client, get_pinecone_client
 logger = logging.getLogger(__name__)
 
 
-def serialize_results(data, mappings={}):
+def serialize_results(data, mappings=None):
     """
     Serialize a list of dictionaries by transforming keys based on provided mappings
     and converting values to strings.
@@ -19,6 +19,7 @@ def serialize_results(data, mappings={}):
     Returns:
     list: A serialized list of dictionaries with transformed keys and string-converted values.
     """
+    mappings = {} if mappings is None else mappings
     serialized_data = list(
         map(
             lambda item: {

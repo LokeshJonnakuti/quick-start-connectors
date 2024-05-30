@@ -19,7 +19,8 @@ class PagerdutySearchClient:
     def get_search_types(self):
         return self.search_types
 
-    def _make_request(self, url, params={}):
+    def _make_request(self, url, params=None):
+        params = {} if params is None else params
         response = requests.get(
             url,
             headers=self.headers,

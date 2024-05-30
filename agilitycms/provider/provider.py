@@ -24,7 +24,8 @@ def serialize_results(data):
     return serialized_data
 
 
-def build_filter(query_string, fields=["fields.title", "fields.content"]):
+def build_filter(query_string, fields=None):
+    fields = ["fields.title", "fields.content"] if fields is None else fields
     filter_parts = []
     for field in fields:
         filter_parts.append(f'{field}[like]"{query_string}"')

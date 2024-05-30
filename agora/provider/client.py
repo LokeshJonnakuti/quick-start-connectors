@@ -23,7 +23,8 @@ class AgoraApiClient:
         base64_encoded = base64.b64encode(self.credentials.encode("utf8"))
         return base64_encoded.decode("utf8")
 
-    def get(self, url, params={}):
+    def get(self, url, params=None):
+        params = {} if params is None else params
         response = requests.get(url, headers=self.headers, params=params)
 
         if response.status_code != 200:
