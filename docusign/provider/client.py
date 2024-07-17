@@ -28,7 +28,7 @@ class DocuSignClient:
     def _get_user_info(self) -> dict[str, Any]:
         url = self.base_path + self.OAUTH_USER_INFO_END_POINT
         auth = {"Authorization": "Bearer " + self.access_token}
-        response = requests.get(url, headers=auth)
+        response = requests.get(url, headers=auth, timeout=60)
         if response.status_code != 200:
             message = (
                 response.text or f"Get user info error: HTTP {response.status_code}"

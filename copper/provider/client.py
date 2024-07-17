@@ -31,7 +31,7 @@ class CopperApiClient:
         return self.mapping
 
     def post(self, url, params={}):
-        response = requests.post(url, headers=self.headers, json=params)
+        response = requests.post(url, headers=self.headers, json=params, timeout=60)
 
         if response.status_code != 200:
             message = response.text or f"Error: HTTP {response.status_code}"

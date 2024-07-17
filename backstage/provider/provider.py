@@ -73,7 +73,7 @@ def search(query):
     if headers:
         kwargs["headers"] = headers
 
-    response = requests.get(**kwargs)
+    response = requests.get(**kwargs, timeout=60)
 
     if response.status_code != 200:
         message = response.text or f"Error: HTTP {response.status_code}"

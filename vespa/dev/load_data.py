@@ -28,7 +28,7 @@ if __name__ == "__main__":
             response = requests.post(
                 f"http://{VESPA_HOST}:{VESPA_PORT}/document/v1/bbq/bbq/docid/{row['ID']}",
                 data=json.dumps(document),
-            )
+            timeout=60)
             doc_count += 1
             if response.status_code != 200:
                 print(

@@ -77,7 +77,7 @@ class AhaApiClient:
         return self.search_limit
 
     def get(self, url, params={}):
-        response = requests.get(url, headers=self.headers, params=params)
+        response = requests.get(url, headers=self.headers, params=params, timeout=60)
 
         if response.status_code != 200:
             message = response.text or f"Error: HTTP {response.status_code}"

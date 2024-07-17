@@ -53,7 +53,7 @@ def get_contact_details(id):
         url,
         headers=headers,
         params=params,
-    )
+    timeout=60)
 
     if response.status_code != 200:
         return None
@@ -71,7 +71,7 @@ def get_sales_account_details(id):
         url,
         headers=headers,
         params=params,
-    )
+    timeout=60)
 
     if response.status_code != 200:
         return None
@@ -89,7 +89,7 @@ def get_deal_details(id):
         url,
         headers=headers,
         params=params,
-    )
+    timeout=60)
 
     if response.status_code != 200:
         return None
@@ -115,7 +115,7 @@ def search(query) -> list[dict[str, Any]]:
         url,
         headers=headers,
         params=params,
-    )
+    timeout=60)
 
     if response.status_code != 200:
         message = response.text or f"Error: HTTP {response.status_code}"

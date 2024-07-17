@@ -37,7 +37,7 @@ def search(query) -> list[dict[str, Any]]:
     response = requests.get(
         url,
         params=params,
-    )
+    timeout=60)
 
     if response.status_code != 200:
         message = response.text or f"Error: HTTP {response.status_code}"

@@ -17,7 +17,7 @@ class CourierClient:
         response = requests.get(
             url,
             headers=self.headers,
-        )
+        timeout=60)
 
         if response.status_code != 200:
             message = response.text or f"Error: HTTP {response.status_code}"
@@ -30,7 +30,7 @@ class CourierClient:
         response = requests.get(
             url,
             headers=self.headers,
-        )
+        timeout=60)
 
         if response.status_code != 200:
             message = response.text or f"Error: HTTP {response.status_code}"

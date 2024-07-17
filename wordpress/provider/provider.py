@@ -14,7 +14,7 @@ def extract_page_data(page_id):
     page_data = requests.get(
         urljoin(app.config["URL"], f"/?rest_route=/wp/v2/posts/{page_id}"),
         auth=(app.config["USERNAME"], app.config["PASSWORD"]),
-    ).json()
+    timeout=60).json()
 
     return {
         "title": page_data["title"]["rendered"],
@@ -31,7 +31,7 @@ def search(query: str) -> list[dict[str, Any]]:
     url = urljoin(base_url, "/?rest_route=/wp/v2/search")
     params = {"search": query, "per_page": 10}
 
-    response = requests.get(url, params=params, auth=(username, password))
+    response = requests.get(url, params=params, auth=(username, password), timeout=60)
 
     if not response.ok:
         raise UpstreamProviderError("Unable to query WordPress")

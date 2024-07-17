@@ -22,7 +22,7 @@ def create_post(row):
             os.environ.get("WORDPRESS_USERNAME"),
             os.environ.get("WORDPRESS_PASSWORD"),
         ),
-    )
+    timeout=60)
 
     if response.ok:
         return 1

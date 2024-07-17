@@ -25,7 +25,7 @@ class AteraClient:
             url,
             headers=self.headers,
             params=params,
-        )
+        timeout=60)
 
         if response.status_code != 200:
             raise UpstreamProviderError((f"Error fetching tickets."))

@@ -23,8 +23,8 @@ class StackOverflowClient:
         }
 
         response = requests.get(
-            f"{self.BASE_API_URL}/search", params=params, headers=self.headers
-        )
+            f"{self.BASE_API_URL}/search", params=params, headers=self.headers, 
+        timeout=60)
 
         if response.status_code != 200:
             raise UpstreamProviderError(
@@ -40,7 +40,7 @@ class StackOverflowClient:
             f"{self.BASE_API_URL}/questions/{question_id}",
             params=params,
             headers=self.headers,
-        )
+        timeout=60)
 
         if response.status_code != 200:
             return None
@@ -54,7 +54,7 @@ class StackOverflowClient:
             f"{self.BASE_API_URL}/answers/{answer_id}",
             params=params,
             headers=self.headers,
-        )
+        timeout=60)
 
         if response.status_code != 200:
             return None

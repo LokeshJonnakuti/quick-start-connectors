@@ -45,7 +45,7 @@ def search(query) -> list[dict[str, Any]]:
             "scopes": scopes,
             "pageSize": page_size,
         },
-    )
+    timeout=60)
     if response.status_code != 200:
         message = response.text or f"Error: HTTP {response.status_code}"
         raise UpstreamProviderError(message)

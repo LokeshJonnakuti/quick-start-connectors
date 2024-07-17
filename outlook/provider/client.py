@@ -65,7 +65,7 @@ class OutlookClient:
             "$top": self.search_limit,
         }
         # Make a request to the Microsoft Graph API to get messages
-        response = requests.get(graph_api_url, headers=headers, params=params)
+        response = requests.get(graph_api_url, headers=headers, params=params, timeout=60)
         if not response.ok:
             raise UpstreamProviderError(
                 f"Error while searching Outlook: {response.text}"
@@ -85,7 +85,7 @@ class OutlookClient:
             url=f"https://graph.microsoft.com/v1.0/me/messages",
             params=params,
             headers={"Authorization": f"Bearer {self.access_token}"},
-        )
+        timeout=60)
         if body_response.ok:
             return body_response.json()["value"]
         return None
@@ -105,7 +105,7 @@ class OutlookClient:
                     }
                 ]
             },
-        )
+        timeout=60)
         if not response.ok:
             raise UpstreamProviderError(
                 f"Error while searching Outlook: {response.text}"
