@@ -2,6 +2,7 @@ import requests
 from flask import current_app as app
 
 from . import UpstreamProviderError
+from security import safe_requests
 
 client = None
 
@@ -40,7 +41,7 @@ class MediumApiClient:
         return self.use_graph_ql
 
     def get(self, url, params={}):
-        response = requests.get(url, headers=self.headers, params=params)
+        response = safe_requests.get(url, headers=self.headers, params=params)
 
         if response.status_code != 200:
             message = response.text or f"Error: HTTP {response.status_code}"

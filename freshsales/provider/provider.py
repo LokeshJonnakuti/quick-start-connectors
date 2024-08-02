@@ -1,8 +1,6 @@
 import logging
 import os
 from typing import Any
-
-import requests
 from flask import current_app as app
 
 from . import UpstreamProviderError
@@ -16,6 +14,7 @@ from .constants import (
     SALES_ACCOUNT_PARAMETERS,
     DEAL_PARAMETERS,
 )
+from security import safe_requests
 
 
 logger = logging.getLogger(__name__)
@@ -49,7 +48,7 @@ def get_contact_details(id):
     headers = {
         "Authorization": f"Token token={API_TOKEN}",
     }
-    response = requests.get(
+    response = safe_requests.get(
         url,
         headers=headers,
         params=params,
@@ -67,7 +66,7 @@ def get_sales_account_details(id):
     headers = {
         "Authorization": f"Token token={API_TOKEN}",
     }
-    response = requests.get(
+    response = safe_requests.get(
         url,
         headers=headers,
         params=params,
@@ -85,7 +84,7 @@ def get_deal_details(id):
     headers = {
         "Authorization": f"Token token={API_TOKEN}",
     }
-    response = requests.get(
+    response = safe_requests.get(
         url,
         headers=headers,
         params=params,
@@ -111,7 +110,7 @@ def search(query) -> list[dict[str, Any]]:
     headers = {
         "Authorization": f"Token token={API_TOKEN}",
     }
-    response = requests.get(
+    response = safe_requests.get(
         url,
         headers=headers,
         params=params,

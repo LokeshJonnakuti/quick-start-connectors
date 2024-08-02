@@ -1,7 +1,7 @@
-import requests
 from flask import current_app as app
 
 from . import UpstreamProviderError
+from security import safe_requests
 
 client = None
 
@@ -16,7 +16,7 @@ class FifteenFiveApiClient:
         return self.allowed_entities
 
     def get(self, url, params={}):
-        response = requests.get(
+        response = safe_requests.get(
             url,
             headers=self.headers,
             params=params,

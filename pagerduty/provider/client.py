@@ -1,7 +1,7 @@
-import requests
 from flask import current_app as app
 
 from . import UpstreamProviderError
+from security import safe_requests
 
 client = None
 
@@ -20,7 +20,7 @@ class PagerdutySearchClient:
         return self.search_types
 
     def _make_request(self, url, params={}):
-        response = requests.get(
+        response = safe_requests.get(
             url,
             headers=self.headers,
             params=params,

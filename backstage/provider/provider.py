@@ -1,9 +1,8 @@
 import logging
-
-import requests
 from flask import current_app as app
 
 from . import UpstreamProviderError
+from security import safe_requests
 
 logger = logging.getLogger(__name__)
 
@@ -73,7 +72,7 @@ def search(query):
     if headers:
         kwargs["headers"] = headers
 
-    response = requests.get(**kwargs)
+    response = safe_requests.get(**kwargs)
 
     if response.status_code != 200:
         message = response.text or f"Error: HTTP {response.status_code}"

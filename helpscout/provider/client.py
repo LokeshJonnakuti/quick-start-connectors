@@ -4,6 +4,7 @@ import requests
 from flask import current_app as app
 
 from .provider import UpstreamProviderError
+from security import safe_requests
 
 client = None
 
@@ -53,7 +54,7 @@ class HelpScoutClient:
     def get_conversations(self, query) -> list[dict[str, Any]]:
         query = self._prepare_query(query)
         url = f"{self.BASE_PATH}/{self.API_VERSION}/{self.CONVERSATION_END_POINT}"
-        response = requests.get(
+        response = safe_requests.get(
             url,
             headers={
                 "Authorization": f"Bearer {self._get_access_token()}",

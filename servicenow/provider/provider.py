@@ -1,11 +1,10 @@
 import logging
 from typing import Any
 from urllib.parse import urljoin
-
-import requests
 from flask import current_app as app
 
 from . import UpstreamProviderError
+from security import safe_requests
 
 logger = logging.getLogger(__name__)
 
@@ -28,7 +27,7 @@ def search(query: str) -> list[dict[str, Any]]:
     }
     auth = (username, password)
 
-    response = requests.get(url, auth=auth, params=params)
+    response = safe_requests.get(url, auth=auth, params=params)
 
     if response.status_code != 200:
         raise UpstreamProviderError(f"Failed to query ServiceNow: {response.text}")

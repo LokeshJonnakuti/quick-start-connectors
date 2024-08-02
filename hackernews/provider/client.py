@@ -1,7 +1,7 @@
-import requests
 from flask import current_app as app
 
 from . import UpstreamProviderError
+from security import safe_requests
 
 client = None
 
@@ -18,7 +18,7 @@ class HackerNewsClient:
             "query": query,
             "hitsPerPage": self.search_limit,
         }
-        response = requests.get(
+        response = safe_requests.get(
             url,
             params=params,
         )
@@ -32,7 +32,7 @@ class HackerNewsClient:
 
     def get_item(self, item_id):
         url = f"{self.BASE_URL}/items/{item_id}"
-        response = requests.get(
+        response = safe_requests.get(
             url,
         )
 
