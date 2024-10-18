@@ -16,13 +16,13 @@ def create_field(field_name, field_type):
             "indexed": True,
         }
     }
-    response = requests.post(f"{SOLR_URL}/schema", json=field_payload)
+    response = requests.post(f"{SOLR_URL}/schema", json=field_payload, timeout=60)
     response.raise_for_status()
 
 
 def create_copyfield(source_field, dest_field):
     copyfield_payload = {"add-copy-field": {"source": source_field, "dest": dest_field}}
-    response = requests.post(f"{SOLR_URL}/schema", json=copyfield_payload)
+    response = requests.post(f"{SOLR_URL}/schema", json=copyfield_payload, timeout=60)
     response.raise_for_status()
 
 

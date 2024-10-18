@@ -51,7 +51,7 @@ def fetch_and_decode_content(url) -> str | None:
             "Accept": "application/vnd.github+json",
             "X-GitHub-Api-Version": "2022-11-28",
         },
-    )
+    timeout=60)
 
     if not response.ok:
         logger.error(f"Error fetching GitHub file: {response.json()}")
@@ -76,7 +76,7 @@ def search(query) -> list[dict[str, Any]]:
             ),
             "per_page": app.config.get("RESULTS_PER_PAGE", DEFAULT_RESULTS_PER_PAGE),
         },
-    )
+    timeout=60)
 
     if response.status_code != 200:
         message = response.json().get("message", f"Error: HTTP {response.status_code}")

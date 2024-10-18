@@ -25,7 +25,7 @@ def search(query) -> list[dict[str, Any]]:
     # Freshdesk uses Basic Auth with this specific format, using the API key
     auth = (token, "X")
 
-    response = requests.get(url, auth=auth, params=params)
+    response = requests.get(url, auth=auth, params=params, timeout=60)
 
     if response.status_code != 200:
         message = response.text or f"Error: HTTP {response.status_code}"

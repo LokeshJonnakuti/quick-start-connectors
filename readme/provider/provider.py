@@ -20,7 +20,7 @@ def search(query) -> list[dict[str, Any]]:
     }
 
     auth = requests.auth.HTTPBasicAuth(api_key, "")
-    response = requests.post(url, params=params, auth=auth)
+    response = requests.post(url, params=params, auth=auth, timeout=60)
 
     if response.status_code != 200:
         message = response.text or f"Error: HTTP {response.status_code}"

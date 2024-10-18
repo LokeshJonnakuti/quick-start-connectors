@@ -26,7 +26,7 @@ class KnowledgeOwlClient:
             url,
             auth=self.auth,
             data=data,
-        )
+        timeout=60)
 
         if response.status_code != 200:
             raise UpstreamProviderError(

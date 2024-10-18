@@ -32,7 +32,7 @@ class HelpScoutClient:
                 "client_secret": self.app_secret,
                 "grant_type": "client_credentials",
             },
-        )
+        timeout=60)
         if response.status_code != 200:
             message = response.text or f"Error: HTTP {response.status_code}"
             raise UpstreamProviderError(message)
@@ -61,7 +61,7 @@ class HelpScoutClient:
             params={
                 "query": query,
             },
-        )
+        timeout=60)
         if response.status_code != 200:
             message = response.text or f"Error: HTTP {response.status_code}"
             raise UpstreamProviderError(message)

@@ -56,7 +56,7 @@ class ReutersClient:
         response = requests.post(
             self.TOKEN_ENDPOINT,
             data=body,
-        )
+        timeout=60)
 
         if response.status_code != 200:
             message = response.text or f"Error: HTTP {response.status_code}"
@@ -103,7 +103,7 @@ class ReutersClient:
                 "query": graphql,
                 "variables": {"query": f"fulltext:{self._build_query(query)}"},
             },
-        )
+        timeout=60)
 
         if response.status_code != 200:
             message = response.text or f"Error: HTTP {response.status_code}"

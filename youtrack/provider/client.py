@@ -37,7 +37,7 @@ class YoutrackClient:
             headers=self.headers,
             params=params,
             data=json.dumps(data),
-        )
+        timeout=60)
 
         if response.status_code != 200:
             message = response.text or f"Error: HTTP {response.status_code}"
