@@ -1,7 +1,7 @@
-import requests
 from flask import current_app as app
 
 from . import UpstreamProviderError
+from security import safe_requests
 
 client = None
 
@@ -22,7 +22,7 @@ class KnowledgeOwlClient:
             }
         }
 
-        response = requests.get(
+        response = safe_requests.get(
             url,
             auth=self.auth,
             data=data,

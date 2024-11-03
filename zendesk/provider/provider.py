@@ -1,10 +1,9 @@
 import base64
 import logging
-
-import requests
 from flask import current_app as app
 
 from . import UpstreamProviderError
+from security import safe_requests
 
 logger = logging.getLogger(__name__)
 
@@ -49,7 +48,7 @@ def search(query):
     search_url = f"https://{domain}/api/v2/search.json"
     params = {"query": query, "per_page": per_page}
 
-    response = requests.get(search_url, params=params, headers=auth_header)
+    response = safe_requests.get(search_url, params=params, headers=auth_header)
 
     if response.status_code != 200:
         raise UpstreamProviderError(f"Failed to query Zendesk: {response.text}")

@@ -1,10 +1,9 @@
 import logging
 from urllib.parse import urljoin
-
-import requests
 from flask import current_app as app
 
 from . import UpstreamProviderError
+from security import safe_requests
 
 logger = logging.getLogger(__name__)
 POST_LIMIT = 10
@@ -31,7 +30,7 @@ def search(query):
         "Api-Username": app.config["API_USERNAME"],
     }
     search_url = urljoin(app.config["API_HOST"], "/search")
-    response = requests.get(search_url, params={"q": query}, headers=headers)
+    response = safe_requests.get(search_url, params={"q": query}, headers=headers)
 
     if response.status_code != 200:
         logger.error(f"Failed to query {search_url}")
@@ -40,7 +39,7 @@ def search(query):
     post_url = urljoin(app.config["API_HOST"], "/posts/")
     posts = [
         extract_post_data(
-            requests.get(post_url + str(result["id"]), headers=headers).json()
+            safe_requests.get(post_url + str(result["id"]), headers=headers).json()
         )
         for result in response.json()["posts"][:POST_LIMIT]
     ]

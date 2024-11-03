@@ -1,7 +1,7 @@
-import requests
 from flask import current_app as app
 
 from . import UpstreamProviderError
+from security import safe_requests
 
 client = None
 
@@ -14,7 +14,7 @@ class CourierClient:
 
     def list_messages(self):
         url = f"{self.base_url}/messages"
-        response = requests.get(
+        response = safe_requests.get(
             url,
             headers=self.headers,
         )
@@ -27,7 +27,7 @@ class CourierClient:
 
     def get_message_content(self, message_id):
         url = f"{self.base_url}/messages/{message_id}/output"
-        response = requests.get(
+        response = safe_requests.get(
             url,
             headers=self.headers,
         )

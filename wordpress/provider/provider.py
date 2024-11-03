@@ -1,17 +1,16 @@
 import logging
 from typing import Any
 from urllib.parse import urljoin
-
-import requests
 from flask import current_app as app
 
 from . import UpstreamProviderError
+from security import safe_requests
 
 logger = logging.getLogger(__name__)
 
 
 def extract_page_data(page_id):
-    page_data = requests.get(
+    page_data = safe_requests.get(
         urljoin(app.config["URL"], f"/?rest_route=/wp/v2/posts/{page_id}"),
         auth=(app.config["USERNAME"], app.config["PASSWORD"]),
     ).json()
@@ -31,7 +30,7 @@ def search(query: str) -> list[dict[str, Any]]:
     url = urljoin(base_url, "/?rest_route=/wp/v2/search")
     params = {"search": query, "per_page": 10}
 
-    response = requests.get(url, params=params, auth=(username, password))
+    response = safe_requests.get(url, params=params, auth=(username, password))
 
     if not response.ok:
         raise UpstreamProviderError("Unable to query WordPress")

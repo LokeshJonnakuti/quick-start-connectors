@@ -1,7 +1,7 @@
 from flask import current_app as app
-import requests
 
 from . import UpstreamProviderError
+from security import safe_requests
 
 
 client = None
@@ -22,7 +22,7 @@ class StackOverflowClient:
             "team": self.team,
         }
 
-        response = requests.get(
+        response = safe_requests.get(
             f"{self.BASE_API_URL}/search", params=params, headers=self.headers
         )
 
@@ -36,7 +36,7 @@ class StackOverflowClient:
     def get_question(self, question_id):
         params = {"team": self.team, "filter": "withbody"}
 
-        response = requests.get(
+        response = safe_requests.get(
             f"{self.BASE_API_URL}/questions/{question_id}",
             params=params,
             headers=self.headers,
@@ -50,7 +50,7 @@ class StackOverflowClient:
     def get_answer(self, answer_id):
         params = {"team": self.team, "filter": "withbody"}
 
-        response = requests.get(
+        response = safe_requests.get(
             f"{self.BASE_API_URL}/answers/{answer_id}",
             params=params,
             headers=self.headers,

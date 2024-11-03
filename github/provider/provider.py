@@ -1,11 +1,10 @@
 import logging
 from base64 import b64decode
 from typing import Any
-
-import requests
 from flask import current_app as app
 
 from . import UpstreamProviderError
+from security import safe_requests
 
 
 logger = logging.getLogger(__name__)
@@ -44,7 +43,7 @@ def serialize_result(result):
 def fetch_and_decode_content(url) -> str | None:
     assert (token := app.config.get("TOKEN")), "GITHUB_TOKEN must be set"
 
-    response = requests.get(
+    response = safe_requests.get(
         url,
         headers={
             "Authorization": f"Bearer {token}",
@@ -63,7 +62,7 @@ def fetch_and_decode_content(url) -> str | None:
 def search(query) -> list[dict[str, Any]]:
     assert (token := app.config.get("TOKEN")), "GITHUB_TOKEN must be set"
 
-    response = requests.get(
+    response = safe_requests.get(
         GITHUB_SEARCH_CODE_URL,
         headers={
             "Authorization": f"Bearer {token}",
